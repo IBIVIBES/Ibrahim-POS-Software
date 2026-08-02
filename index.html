@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBRAHIM'S CAFE POS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="pos-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>IBRAHIM'S CAFE</h2>
+            <button onclick="showPOSView()">POS View</button>
+            <button onclick="toggleOrderHistory()">Order History</button>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <h1>Welcome to IBRAHIM'S CAFE</h1>
+            </header>
+            <!-- POS View -->
+            <section class="menu-section" id="menu-section">
+
+                <h2>Menu</h2>
+                <div class="display-flex">
+                    <div class="menu-controls">
+                        <input type="text" id="search-input" placeholder="Search for an item" oninput="filterItems()">
+                        <select id="category-filter" onchange="filterItems()">
+                            <option value="all">All Categories</option>
+                            <option value="Burgers">Burgers</option>
+                            <option value="Fries">Fries</option>
+                            <option value="Pizza">Pizza</option>
+                            <option value="Drinks">Drinks</option>
+                        </select>
+                    </div>
+                    <div class="scanner-section">
+                        <h3>Scan Barcode</h3>
+                        <input type="text" id="barcode-input" placeholder="Scan or enter barcode"
+                            onkeypress="handleBarcode(event)">
+                    </div>
+                </div>
+                <div class="menu-items">
+                    <div class="item" data-category="Burgers" onclick="addItem('Burger', 5)">
+                        <img src="Images/burger 2.jpg" alt="Burger">
+                        <div class="item-info">
+                            <p>Zinger Burger</p>
+                            <span>$5.00</span>
+                        </div>
+
+                    </div>
+
+                    <div class="item" data-category="Fries" onclick="addItem('Fries', 3)">
+                        <img src="Images/fries 2.jpg" alt="Fries">
+                        <div class="item-info">
+                            <p>Fries</p>
+                            <span>$3.00</span>
+                        </div>
+                    </div>
+
+                    <div class="item" data-category="Pizza" onclick="addItem('Pizza', 8)">
+                        <img src="Images/pizza.jpg" alt="Pizza">
+                        <div class="item-info">
+                            <p>Peproni Pizza</p>
+                            <span>$8.00</span>
+                        </div>
+                    </div>
+
+                    <div class="item" data-category="Drinks" onclick="addItem('Drinks', 2)">
+                        <img src="Images/cola .jpg" alt="Soda">
+                        <div class="item-info">
+                            <p>Coca cola</p>
+                            <span>$2.00</span>
+                        </div>
+                    </div>
+                    <div class="item" data-category="Pizza" onclick="addItem('Pizza', 6)">
+                        <img src="Images/kabab.jpeg" alt="Soda">
+                        <div class="item-info">
+                            <p>Kabab Pizza</p>
+                            <span>$6.00</span>
+                        </div>
+                    </div>
+                    <div class="item" data-category="Pizza" onclick="addItem('Pizza', 6)">
+                        <img src="Images/tikka.jpeg" alt="Soda">
+                        <div class="item-info">
+                            <p>Tikka Pizza</p>
+                            <span>$6.00</span>
+                        </div>
+                    </div>
+                    <div class="item" data-category="Burgers" onclick="addItem('Burger', 4)">
+                        <img src="Images/new york.jpeg" alt="Soda">
+                        <div class="item-info">
+                            <p>New York Burger</p>
+                            <span>$4.00</span>
+                        </div>
+                    </div>
+                    <div class="item" data-category="Burgers" onclick="addItem('Burger', 5)">
+                        <img src="Images/staked.jpeg" alt="Soda">
+                        <div class="item-info">
+                            <p>Staked Burger</p>
+                            <span>$5.00</span>
+                        </div>
+                    </div>
+
+                    <div class="item" data-category="Pizza" onclick="addItem('Pizza', 8)">
+                        <img src="Images/tikka.jpeg" alt="Soda">
+                        <div class="item-info">
+                            <p>Tikka Pizza</p>
+                            <span>$8.00</span>
+                        </div>
+                    </div>
+                    <div class="item" data-category="Burgers" onclick="addItem('Burger', 6)">
+                        <img src="Images/patty.jpeg" alt="Soda">
+                        <div class="item-info">
+                            <p>Patty Burger</p>
+                            <span>$6.00</span>
+                        </div>
+                    </div>
+                    <div class="item" data-category="Drinks" onclick="addItem('Drinks', 2)">
+                        <img src="Images/sprite.jpeg" alt="Soda">
+                        <div class="item-info">
+                            <p>Sprite</p>
+                            <span>$2.00</span>
+                        </div>
+                    </div>
+                    <div class="item" data-category="Drinks" onclick="addItem('Drinks', 2)">
+                        <img src="Images/fanta.jpeg" alt="Soda">
+                        <div class="item-info">
+                            <p>Fanta</p>
+                            <span>$2.00</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+
+
+            <!-- Order Section -->
+            <section class="order-section" id="order-section">
+                <h2>Order List</h2>
+                <ul id="order-list"></ul>
+                <div class="total">
+                    <span>Total:</span>
+                    <span id="total-amount">$0.00</span>
+                </div>
+                <button id="clear-order" onclick="clearOrder()">Clear Order</button>
+                <button id="complete-order" onclick="completeOrder()">Complete Order</button>
+            </section>
+
+            <!-- Order History Section -->
+            <section class="order-history" id="order-history-section" style="display: none;">
+                <h2>Order History</h2>
+                <ul id="history-list"></ul>
+                <button onclick="showPOSView()">Back to POS</button>
+            </section>
+
+            <!-- Receipt Modal -->
+            <div class="receipt-modal" id="receipt-modal" style="display: none;">
+                <div class="receipt-content">
+                    <h2>Receipt</h2>
+                    <p id="receipt-details"></p>
+                    <button onclick="closeReceipt()">Close</button>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <p>&copy; 2024 IBRAHIM'S CAFE | Powered by Your POS System</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
